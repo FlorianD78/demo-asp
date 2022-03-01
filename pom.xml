@@ -10,7 +10,7 @@
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>fr.edu.devnat.sprbootadm</groupId>
+  <groupId>fr.neosoft.asp.sprbootadm</groupId>
   <artifactId>sprbootadm</artifactId>
   <version>1.0.0</version>
 
@@ -20,22 +20,22 @@
   <distributionManagement>
     <repository>
       <uniqueVersion>false</uniqueVersion>
-      <id>releases</id>
+      <id>central</id>
       <name>Internal releases repository</name>
-      <url>https://repository-maven.forge.education.gouv.fr/releases/</url>
+      <url>http://asp.labneosoft.fr:8081/repository/maven-hosted-release/</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>true</uniqueVersion>
-      <id>snapshots</id>
+      <id>central</id>
       <name>Internal snapshots repository</name>
-      <url>https://repository-maven.forge.education.gouv.fr/snapshots/</url>
+      <url>http://asp.labneosoft.fr:8081/repository/maven-hosted-snapshot/</url>
     </snapshotRepository>
   </distributionManagement>
 
   <scm>
-    <connection>scm:git:https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</connection>
-    <developerConnection>scm:git:https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</developerConnection>
-    <url>https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</url>
+    <connection>scm:git:http://asp.labneosoft.fr:8089/root/asp-demo/-/tree/master</connection>
+    <developerConnection>scm:git:http://asp.labneosoft.fr:8089/root/asp-demo/-/tree/master</developerConnection>
+    <url>http://asp.labneosoft.fr:8089/root/asp-demo/-/tree/master</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -120,6 +120,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
