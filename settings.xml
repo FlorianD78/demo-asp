@@ -1,9 +1,40 @@
 <settings>
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://asp.labneosoft.fr:8081/repository/maven-central/</url>
+      </mirror>
+    </mirrors>
+    <profiles>
+      <profile>
+        <id>nexus</id>
+        <repositories>
+          <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enable>true</enable></releases>
+          <snapshots><enable>true</enable></snapshots>
+          </repository>
+        </repositories>
+        <pluginRepositories>
+            <pluginRepository>
+            <id>central</id>
+            <url>http://central</url>
+            <releases><enable>true</enable></releases>
+            <snapshots><enable>true</enable></snapshots>
+            </pluginRepository>
+          </pluginRepositories>
+        </profile>
+      </profiles>
+    <activeProfile>nexus</activeProfile>
+   </activeProfiles>
   <servers>
     <server>
-      <id>maven-snapshots</id>
-      <username>jenkins-user</username>
-      <password>password</password>
+      <id>nexus</id>
+      <username>deploy-user</username>
+      <password>user</password>
     </server>
   </servers>
 </settings>
+
