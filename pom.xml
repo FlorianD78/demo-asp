@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.0.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>fr.edu.devnat.sprbootadm</groupId>
+  <artifactId>sprbootadm</artifactId>
+  <version>1.0.0</version>
+
+  <name>Spring Boot Admin Console</name>
+  <description>Admin console for Spring Boot Applications</description>
+
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>releases</id>
+      <name>Internal releases repository</name>
+      <url>https://repository-maven.forge.education.gouv.fr/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>true</uniqueVersion>
+      <id>snapshots</id>
+      <name>Internal snapshots repository</name>
+      <url>https://repository-maven.forge.education.gouv.fr/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <scm>
+    <connection>scm:git:https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</connection>
+    <developerConnection>scm:git:https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</developerConnection>
+    <url>https://gitlab.forge.education.gouv.fr/sprbootadm/sprbootadm.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
+    <log4j2.version>2.17.1</log4j2.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>de.codecentric</groupId>
+      <artifactId>spring-boot-admin-starter-server</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>de.codecentric</groupId>
+        <artifactId>spring-boot-admin-dependencies</artifactId>
+        <version>${spring-boot-admin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+
+    <resources>
+      <resource>
+        <directory>src/main/delivery</directory>
+        <targetPath>${project.build.directory}</targetPath>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+              <goal>build-info</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>true</executable>
+          <mainClass>fr.edu.devnat.sprbootadm.Application</mainClass>
+          <addResources>false</addResources>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>fr.edu.devnat.build</groupId>
+        <artifactId>livraison-maven-plugin</artifactId>
+        <version>0.4.5</version>
+        <configuration>
+          <mantisProjectId>1200</mantisProjectId>
+          <tyforgeProjectName>sprbootadm</tyforgeProjectName>
+          <module>SPRBOOTADM</module>
+          <site>DEV Grenoble</site>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <preparationGoals>clean package</preparationGoals>
+          <arguments>-Dmaven.test.skip=true</arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
